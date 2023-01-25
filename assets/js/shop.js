@@ -1,12 +1,11 @@
 
 import { Cart } from "./cart.js";
-import { getProducts } from "./products.js";
+import { getProducts , showCatalog} from "./products.js";
 const cart = new Cart();
-let products = [];
 
-const main = async() =>{
-    products = await getProducts();
-    console.log(products);
+
+const main = async() =>{    
+    showCatalog();
 }
 main();
 
