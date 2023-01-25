@@ -1,4 +1,5 @@
-
+import { Cart } from "./cart.js";
+const cart = new Cart();
 
 const getProducts = async () => {
 
@@ -18,7 +19,7 @@ const getProducts = async () => {
 }
 
 const getProductHTML = (product) => {
-    const nameImg = product.name.replace(/[^a-zA-Z0-9 ]/g, '');    
+    const nameImg = product.name.replace(/[^a-zA-Z0-9 ]/g, '');
     return `
     <div class="col">
       <div class="card">
@@ -30,7 +31,7 @@ const getProductHTML = (product) => {
           <h5 class="card-title">${product.name}</h5>
           <p class="card-text">Price: ${product.unit_price}</p>
           <p class="card-text">Stock: ${product.stock}</p>          
-          <button id="btn-catalogo-${product.id}" class="btn btn-success">Add to cart</button>
+          <button id="btn-product-${product.id}" class="btn btn-success">Add to cart</button>
         </div>
       </div>
     </div>`;
@@ -43,7 +44,24 @@ const showCatalog = async () => {
     products.forEach(product => {
         catalog.innerHTML += getProductHTML(product);
     });
+    //Add event listeners
+    btnProducts();
 }
+
+const btnProducts = async () => {
+    const products = await getProducts();
+    products.forEach(product => {
+        const btn = document.getElementById(`btn-product-${product.id}`);
+        btn.addEventListener('click', () => {            
+            if (product.stock <= 0) return alert('No stock available for this product');
+            if (product.stock < 1) return alert('Quantity not available');
+            cart.addItem(product.name, 2 ,product.unit_price);
+            cart.showCart();
+        });
+    });
+}
+
+
 
 export {
     getProducts,
