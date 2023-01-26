@@ -13,8 +13,21 @@ class Cart {
         this.items = [];
     }
 
-    addItem(name, quantity, unit_price) {
-        this.items.push(new Product(name, quantity, unit_price));
+    addItem(name, quantity, unit_price) {       
+
+        let exist = false;
+        this.items.forEach( item =>{
+            if (item.product === name) {
+                exist = true;
+                item.quantity += quantity;
+                item.total_price += quantity * unit_price;
+            }
+        });
+
+        if(!exist){
+            this.items.push(new Product(name, quantity, unit_price));
+        }
+        
     }
 
     get cartItems() {
@@ -68,7 +81,7 @@ class Cart {
             cart.innerHTML += this.getProductHTMLCart(product);            
         });      
 
-        total.innerHTML = `<p>Total price: <b>${this.totalPrice()}</b></p>`;
+        total.innerHTML = `<p>Order price: <b>${this.totalPrice()}</b></p>`;
     }
 
 

@@ -52,10 +52,20 @@ const btnProducts = async () => {
     const products = await getProducts();
     products.forEach(product => {
         const btn = document.getElementById(`btn-product-${product.id}`);
-        btn.addEventListener('click', () => {            
-            if (product.stock <= 0) return alert('No stock available for this product');
-            if (product.stock < 1) return alert('Quantity not available');
-            cart.addItem(product.name, 2 ,product.unit_price);
+        btn.addEventListener('click', () => {
+
+            if (product.stock <= 0) 
+            {
+                alert('No stock available for this product!');                
+                return;
+            }               
+
+            //TODO: Validate stock
+            product.stock -= 1;
+
+
+            //Add to cart
+            cart.addItem(product.name, 1, product.unit_price);
             cart.showCart();
         });
     });
