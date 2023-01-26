@@ -31,7 +31,7 @@ const getProductHTML = (product) => {
           <h5 class="card-title">${product.name}</h5>
           <p class="card-text">Price: ${product.unit_price}</p>
           <p class="card-text">Stock: ${product.stock}</p>          
-          <button id="btn-product-${product.id}" class="btn btn-success">Add to cart</button>
+          <button id="btn-product-${product.id}" class="btn btn-dark">Add to cart</button>
         </div>
       </div>
     </div>`;
@@ -75,5 +75,6 @@ const btnProducts = async () => {
 
 export {
     getProducts,
-    showCatalog
+    showCatalog,
+    cart
 }
