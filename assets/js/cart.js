@@ -1,3 +1,5 @@
+import { currencyFormatter } from "./util/utils.js";
+
 class Product {
     constructor(product, quantity, unit_price) {
         this.product = product;
@@ -79,9 +81,14 @@ class Cart {
         }
         this.items.forEach((product) => {            
             cart.innerHTML += this.getProductHTMLCart(product);            
-        });      
+        });  
 
-        total.innerHTML = `<p>Order price: <b>${this.totalPrice()}</b></p>`;
+        const formatedValue = currencyFormatter({
+            currency: "USD",
+            value:this.totalPrice()
+        });
+
+        total.innerHTML = `<p>Order price: <b>${formatedValue}</b></p>`;
     }
 
 
